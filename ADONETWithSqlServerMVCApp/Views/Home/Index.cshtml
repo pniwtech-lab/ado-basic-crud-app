@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Employee Info";
+}
+
+@Styles.Render("~/Content/dataTable")
+@Styles.Render("~/Content/Sweetalert")
+
+<h2>Employee Info</h2>
+
+<div class="container">
+    <hr />
+
+    @if (@TempData["AlertMessage"] != null)
+    {
+        var alertMessage = @TempData["AlertMessage"] as ADONETWithSqlServerMVCApp.Constants.AlertMessage;
+
+        <divw class="col-md-12">
+            <div id=mainAlertMessage class="alert @alertMessage.AlertTypeCss alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div style="text-align: center"><strong>@alertMessage.AlertTitle</strong> @alertMessage.Message</div>
+            </div>
+        </divw>
+    }
+
+    <div class="card shadow mb-4">
+        <div class="card-header" style="padding-top: 16px; padding-bottom: 16px; padding-right: 20px; padding-left: 20px">
+            <a href="@Url.Action("AddRecord", "Home")" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> Add Employee
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>Pin Code</th>
+                            <th>Designation</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow dr in ViewBag.emp.Rows)
+                        {
+                            <tr>
+                                <td>@dr["Emp_id"]</td>
+                                <td>@dr["Name"]</td>
+                                <td>@dr["Address"]</td>
+                                <td>@dr["City"]</td>
+                                <td>@dr["Pin_code"]</td>
+                                <td>@dr["Designation"]</td>
+                                <td>
+                                    <a href="@Url.Action("EditRecord", "Home", new { id = dr["Emp_id"] })"><span class="glyphicon glyphicon-edit" style="font-size:medium"></span></a>
+                                    <a class="delete" id=@dr["Emp_id"]><span class="glyphicon glyphicon-trash" style="font-size:medium"></span></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/Sweetalert")
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            
+            $('.delete').on('click', function () {
+                var ID = $(this).attr("id");
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        location.href = '@Url.Action("DeleteRecord", "Home")?id=' + ID;
+                    }
+                })
+            });
+        });
+</script>
+}
