@@ -169,11 +169,11 @@ namespace ADONETWithSqlServerMVCApp.Controllers
         }
 
         // This action is used for Dummy page only
-        public ActionResult showData()
-        {
-            Employee emp = new Employee();
-            List<EmployeeAccessLayer> List_EmployeeAccess = emp.GetData();
-            return View(List_EmployeeAccess);
-        }
+        //public ActionResult showData()
+        //{
+        //    Employee emp = new Employee();
+        //    List<EmployeeAccessLayer> List_EmployeeAccess = emp.GetData();
+        //    return View(List_EmployeeAccess);
+        //}
     }
 }

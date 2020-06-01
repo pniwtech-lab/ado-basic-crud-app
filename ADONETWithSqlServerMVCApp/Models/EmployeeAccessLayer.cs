@@ -6,6 +6,7 @@ using System.Web;
 
 /**
  * This is used for Dummy page.
+ * this calss is not in use on application. It is used only for Dummy page.
  */
 namespace ADONETWithSqlServerMVCApp.Models
 {
