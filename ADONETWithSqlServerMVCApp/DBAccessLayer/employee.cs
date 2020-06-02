@@ -9,6 +9,7 @@ using ADONETWithSqlServerMVCApp.Models;
 
 /**
  * This is used for Dummy page which is directly get data from database.
+ * this calss is not in use on application. It is used only for Dummy page.
  */
 
 namespace ADONETWithSqlServerMVCApp.DBAccessLayer
